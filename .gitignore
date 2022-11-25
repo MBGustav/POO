@@ -1,0 +1,6 @@
+# vscode Files
+.vscode/*
+.ipynb_checkpoints
+Aula_01.cpp
+build/*
+
