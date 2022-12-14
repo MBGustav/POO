@@ -1,6 +1,13 @@
 # vscode Files
-.vscode/*
+*/.vscode/*
 .ipynb_checkpoints
 Aula_01.cpp
 build/*
 
+# Build Files
+*/build/*
+
+Unit_2/main
+.vscode/launch.json
+.vscode/settings.json
+.vscode/c_cpp_properties.json
