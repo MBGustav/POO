@@ -28,6 +28,7 @@ void Aluno::imprime() const
 
 Aluno::~Aluno()
 {
+    std::cout << "Destroi Aluno\n";
 }
 
 

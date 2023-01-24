@@ -9,8 +9,11 @@
 class Professor : public Pessoa
 {
 private:
+  //atributes
   float Salario;
 public:
+
+//methods
   Professor(std::string Nome, int CPF, float Sal);
 
   //setters
@@ -18,6 +21,11 @@ public:
 
   //getters
   float getSalario();
+
+
+  //Impressao
+  void imprime() const;
+
 
   ~Professor();
 };
@@ -35,10 +43,15 @@ void Professor::setSalario(float in){
 float Professor::getSalario(){
   return this->Salario;
 }
-
+void Professor::imprime() const{
+  std::cout <<"Impressao do tipo Professor" <<std::endl;
+  Pessoa::imprime();
+  std::cout << this->Salario;
+}
 
 Professor::~Professor()
 {
+  std::cout << "Destroi Professor\n";
 }
 
 #endif//__PROFESSOR_HPP__

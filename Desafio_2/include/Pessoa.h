@@ -26,7 +26,11 @@ public:
   int getCPF() const;
   std::string getNome() const;
 
-  void imprime() const;
+  //setters
+  void setCPF(int);
+  void setNome(std::string);
+
+  virtual void imprime() const;
 
   //destructor
   ~Pessoa();
@@ -46,6 +50,13 @@ void Pessoa::imprime() const{
   std::cout << "Nome: " << this->Nome << std::endl;
   std::cout << "CPF : " << this->CPF << std::endl;
 }
+
+  void Pessoa::setCPF(int cpf){
+    this->CPF = cpf;
+  }
+  void Pessoa::setNome(std::string nome){
+    this->Nome = nome; 
+  }
 
 //destructor
 Pessoa::~Pessoa(){
