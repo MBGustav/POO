@@ -1,4 +1,3 @@
 echo Iniciando Execução; 
-
-
-g++  -I/include/*.cpp main.cpp -o main && ./main;
+g++  -o main include/*.cpp main.cpp  && ./main;
+rm main
