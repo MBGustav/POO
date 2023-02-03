@@ -3,6 +3,8 @@
 
 //Builtin Libs
 #include <iostream>
+#include <cmath>
+using std::fabs;
 using std::ostream;
 
 

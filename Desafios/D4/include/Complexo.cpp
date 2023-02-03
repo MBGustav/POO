@@ -2,13 +2,9 @@
 
 
 Complexo::Complexo(float real, float imaginary): a(real), b(imaginary)
-{
-
-}
-
+{}
 Complexo::~Complexo()
-{
-}
+{}
 
 Complexo Complexo::operator+(const Complexo &_z){
     return Complexo(_z.a + this->a, _z.b + this->b);
@@ -20,9 +16,7 @@ Complexo Complexo::operator-(const Complexo &_z){
 
 //Ele cria um outro objeto? acho que nao, a alteração eh feita no proprio obj.
 Complexo Complexo::operator-(){
-    this->a = (-1)*(a);
-    this->b = (-1)*(b);
-    return *this;
+    return Complexo(-this->a, -this->b);
 }
 
 // A multiplicação z1(a+bi) ∗ z2(c+di) = ac − bd + (ad + bc)i.
@@ -30,10 +24,6 @@ Complexo Complexo::operator-(){
 Complexo Complexo::operator*(const Complexo &_z){
     return Complexo(this->a*_z.a -this->b*_z.b, this->a*_z.b + this->b * _z.a);
 }
-
-// 
-// ejam z1 = a + bi e z2 = c + di. A divisão z1 /z2 = cac+bd
-// 2 +d2 + c2 +d2 i.
 
 
 Complexo Complexo::operator/(const Complexo &_z){
@@ -50,8 +40,12 @@ Complexo Complexo::operator/(const Complexo &_z){
 
 //?? Porque retornamos os, e colocamos como parametro ? 
 //Porque este metodo eh fora da classe ?
+//o cout é um objeto de ostream, que precisa ser enviado como parametro para nosso
+//para o retorno, é porque ele pode ser usado em longas cadeias. 
+//metodos friend  eh uma liberação de acesso a todos os elementos
+// que permitem o acesso a funções do 
  ostream &operator<<(ostream &os, const Complexo &_z){
-    os << _z.a << (_z.b>0 ? "+": "") << _z.b <<"i" ;
+    os << _z.a << (_z.b>0 ? " + ": " - ") << fabs(_z.b) <<"i" ;
     return os;
 }
 
