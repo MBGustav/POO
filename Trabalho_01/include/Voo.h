@@ -3,6 +3,9 @@
 
 //Built-in Libs
 #include <iostream>
+#include <iomanip>
+using std::setfill, std::setw;
+
 #include <cstring>
 
 //Usr libs
@@ -17,7 +20,7 @@ private:
     //parametros
     int nro_voo;
     DataHorario Data;
-    int total_vagos;
+    int total_vagos;//total de poltronas vagas
 
     //declaração Estatica - comentado
     // Pessoa *assentos[max_passengers];

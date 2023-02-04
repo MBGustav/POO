@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <iomanip>
+using std::setfill, std::setw;
 
 class DataHorario
 {
@@ -13,6 +15,7 @@ private:
     const std::string Month[12] = {"Janeiro", "Fevereiro", "Março", "Abril",
                     "Maio", "Junho","Julho", "Agosto", 
                     "Setembro", "Outubro", "Novembro", "Dezembro"};
+    const int day_month[12] ={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 //=======================
 
 public:
@@ -27,11 +30,14 @@ public:
     int getMinuto() const;
     int getSegundo() const;
 
+
+
     //Metodos
     int comparaData(DataHorario &D);
     int comparaHora(DataHorario &D);
     int compara(DataHorario&);
 
+    bool is_bissexto(int i);
     //Metodos -- impressao
     void imprime(bool) const;
     void imprimePorExtenso() const;

@@ -3,8 +3,28 @@
 
 
 //construtor
-DataHorario::DataHorario(int _dia, int _mes, int _ano, int _hora, int _min, int _seg): 
-                    dia(_dia),  mes(_mes),  ano(_ano),  hora(_hora),  min(_min),  seg(_seg){}
+// DataHorario::DataHorario(int _dia, int _mes, int _ano, int _hora, int _min, int _seg): 
+//                     dia(_dia),  mes(_mes),  ano(_ano),  hora(_hora),  min(_min),  seg(_seg){}
+
+
+DataHorario::DataHorario(int _dia, int _mes, int _ano, int _hora, int _min, int _seg){
+    //Check Tempo:  (hora ) & (seg) & min
+    bool time_OK = (0 <= _hora && _hora <= 24) && (0 <= _seg && _seg <=60) && (0 <= _min && _min <=60) ;
+    // int feb_add =  (is_bissexto(_ano) && _mes == 2 ? 1:0);
+    int feb_add = 0;
+    if(is_bissexto(_ano) && _mes == 2) feb_add = 1;
+    //check Data --> feb_add = 0 ou 1 e eh adicionado apenas quando estamos comparando mes 2 (fevereiro)
+    bool date_OK = (0 <= _ano) && (0 < _mes && _mes <=12) && (0<= _dia && _dia <= day_month[_mes -1]+feb_add);
+
+    if(time_OK && date_OK){
+        this->seg = _seg;
+        this->min = _min;
+        this->hora = _hora;
+        this->ano = _ano;
+        this->mes = _mes;
+        this->dia = _dia;
+    }
+}
 
 //Destrutor
 DataHorario::~DataHorario()
@@ -19,6 +39,12 @@ int DataHorario::getHora() const{return this->hora;}
 int DataHorario::getMinuto() const{return this->min;}
 int DataHorario::getSegundo() const{return this->seg;}
 
+
+bool DataHorario::is_bissexto(int _ano)
+{
+    bool is_true = (_ano % 400 == 0) || ( (_ano % 4 == 0) && (_ano % 100 != 0) );
+    return is_true;
+}
 
 int DataHorario::compara(DataHorario& D)
 {   
@@ -80,29 +106,30 @@ int DataHorario::comparaData(DataHorario &D){
 }
 
 void DataHorario::imprime(bool type=false) const{
-        std::cout << getDia() << "/" ;
-        std::cout << getMes() << "/" ;
-        std::cout << getAno()  << " - ";
+        std::cout << setfill('0') <<setw(2) << getDia() << "/" ;
+        std::cout << setfill('0') <<setw(2) << getMes() << "/" ;
+        std::cout << setfill('0') <<setw(4) << getAno()  << " - ";
     if(type){
-        std::cout << getHora()%12 << ":" ;
-        std::cout << getMinuto()  << ":" ;
-        std::cout << getSegundo() << " - ";
+        std::cout << setfill('0') <<setw(2) << getHora()%12 << ":" ;
+        std::cout << setfill('0') <<setw(2) << getMinuto()  << ":" ;
+        std::cout << setfill('0') <<setw(2) << getSegundo() << " - ";
         std::cout << (getHora() < 12 ? "AM" : "PM") <<std::endl;
     }else{
-        std::cout << getHora()   << ":" ;
-        std::cout << getMinuto() << ":" ;
-        std::cout << getSegundo() << "." <<std::endl;
+        std::cout << setfill('0') <<setw(2) << getHora()   << ":" ;
+        std::cout << setfill('0') <<setw(2) << getMinuto() << ":" ;
+        std::cout << setfill('0') <<setw(2) << getSegundo() << "." <<std::endl;
     }
 }
 
 void DataHorario::imprimePorExtenso() const{
 
     //Data
-    std::cout <<  getDia() << " de " 
+    std::cout  << setfill('0') <<setw(2) <<  getDia() << " de " 
               <<  Month[getMes()-1] << " de "
               <<  getAno() << " - ";
     //Hora
-    std::cout << getHora() << " Horas, "
-              << getMinuto() << " Minutos, " 
-              << getSegundo()<< "segundos." << std::endl;
+    std::cout << setfill('0') <<setw(2) << getHora() << " Horas, ";
+    std::cout << setfill('0') <<setw(2) << getMinuto() << " Minutos, " ; 
+    std::cout << setfill('0') <<setw(2) << getMinuto() << " Segundos\n" ; 
+
 }
