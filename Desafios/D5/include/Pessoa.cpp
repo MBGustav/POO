@@ -6,9 +6,7 @@ Pessoa::Pessoa(string _nome, int _idade):
         nome(_nome), idade(_idade)
 {
     total_animals = 0;
-    // memset(animals, NULL, MAX * sizeof(AnimalDomestico*));
-    for(int i = 0; i < MAX; i++)
-        animals[i] = NULL;
+    memset(animals, NULL, MAX * sizeof(AnimalDomestico*));
 }
 
 Pessoa::~Pessoa()
