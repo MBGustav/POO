@@ -64,7 +64,7 @@ bool Voo::desocupa(int pos){
     assentos[idx] = NULL;
     
     //Corrigimos a posição de local dos passageiros
-    while(idx < total_vagos -10 ){
+    while(idx < total_vagos-1){
         assentos[idx] = assentos[idx+1];
         idx++;
     }

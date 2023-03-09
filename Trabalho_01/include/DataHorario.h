@@ -39,7 +39,7 @@ public:
 
     bool is_bissexto(int i);
     //Metodos -- impressao
-    void imprime(bool) const;
+    void imprime(bool a = false) const;
     void imprimePorExtenso() const;
 
 };
