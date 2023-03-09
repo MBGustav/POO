@@ -5,9 +5,13 @@ Aula_01.cpp
 build/*
 
 # Build Files
-*/build/*
+**/build/**
+#Desafios/D5/build/*
 
-Unit_2/main
-.vscode/launch.json
-.vscode/settings.json
-.vscode/c_cpp_properties.json
+**/.vscode/**
+
+#Main files objects
+Desafios/**/main
+Exercicios/**/main
+
+M1/**/main
