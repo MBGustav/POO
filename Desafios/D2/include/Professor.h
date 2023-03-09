@@ -20,14 +20,14 @@ public:
   void setSalario(float input);
 
   //getters
-  float getSalario();
+  float getSalario() const;
 
 
   //Impressao
-  void imprime() const;
+  virtual void imprime() const;
 
 
-  ~Professor();
+  virtual ~Professor();
 };
 
 
@@ -40,13 +40,13 @@ void Professor::setSalario(float in){
   this->Salario = in;
 }
 
-float Professor::getSalario(){
+float Professor::getSalario() const {
   return this->Salario;
 }
 void Professor::imprime() const{
-  std::cout <<"Impressao do tipo Professor" <<std::endl;
+  std::cout <<"Professor" <<std::endl;
   Pessoa::imprime();
-  std::cout << this->Salario;
+  std::cout <<"Salario: R$" << this->getSalario() <<"\n\n";
 }
 
 Professor::~Professor()

@@ -22,7 +22,7 @@ int main() {
      
     Professor p2("Sincrano", 54321, 1000);
     
-    Coordenador p3("Beltrano", 13579, 2000, "BCC");
+    Coordenador p3("Beltrano", 13579, 1000, "BCC");
 
     cout << endl << "----------------------------- " << endl << endl;
 
@@ -41,7 +41,7 @@ int main() {
     cout << endl;
     imprimeValor(p2);
     cout << endl;
-    imprimeValor(p3);
+    imprimeValor(p3);   
     cout << endl;
     
     cout << "----------------------------- " << endl << endl;

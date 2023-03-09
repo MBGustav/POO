@@ -33,7 +33,7 @@ public:
   virtual void imprime() const;
 
   //destructor
-  ~Pessoa();
+  virtual ~Pessoa();
 };
 
 
