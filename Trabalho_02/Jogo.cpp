@@ -4,7 +4,7 @@
 namespace catalogo{
     Jogo::Jogo(string titulo, int anoCriacao, string genero):
     Midia(titulo, anoCriacao), Genero(genero){
-        type = vJOGO;
+        // type = vJOGO;
     }
 
     Jogo::~Jogo(){
@@ -16,9 +16,8 @@ namespace catalogo{
     }
 
     void Jogo::imprimeDados() const{ 
-        cout << "Titulo:" << getTitulo() << endl;
-        cout << "Ano:" << getanoCriacao() << endl;
         cout << "Tipo: Jogo Eletrônico" << endl;
+        
     }
 }
 

@@ -18,9 +18,11 @@ using std::setfill, std::setw;
 #define DEF_CD 1
 #define DEF_DVD 2
 #define DEF_JOGO 3
-//outra maneira, mas como ? 
+//outra maneira, mas como ? => enum!
 
 namespace catalogo{
+
+
     typedef enum midia_type{
         vCD=1,
         vDVD, // DVD = 2 
@@ -38,22 +40,30 @@ namespace catalogo{
         int anoCriacao;
         
     public:
+//Constructor && Destructor
         Midia(string Titulo, int Ano);
-
+        virtual ~Midia();
+    
+// metodos virtuais -- p/ subclasses
         virtual string getTitulo() const;
         virtual int getanoCriacao() const;
-
-        
         virtual void imprimeFicha() const;
 
 //metodos abstratos -- decl. em CD, DVD & JOGO
         virtual int getTipo() const = 0;
         virtual void imprimeDados() const=0;
 
+//Metodos de Comparacao
+        static bool comparaTitulo(const Midia* M1, const Midia* M2);
+        static bool comparaAno(const Midia* M1, const Midia* M2);
         
+        bool operator>(const Midia & M) const;
+        bool operator<(const Midia & M) const;
         
-        virtual ~Midia();
     };
+
+
+
 
 }
 

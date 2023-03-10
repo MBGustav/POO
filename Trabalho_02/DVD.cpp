@@ -39,7 +39,5 @@ namespace catalogo{
                 << ", papel: "
                 << Artistas[i].second << endl;
         }
-
-        cout << "--------\n";
     }
 }

@@ -2,7 +2,7 @@
 
 #include "CD.h"
 #include "DVD.h"
-// #include "Catalogo.h"
+#include "Catalogo.h"
 #include "Jogo.h"
 
 using namespace std;
@@ -12,7 +12,7 @@ void realizaTestes() {
     CD *cd1, *cd2;
     DVD *dvd1, *dvd2;
     Jogo *jogo1, *jogo2;
-    // Catalogo *catalogo;
+    Catalogo *catalogo;
 
     cd1 = new CD("X & Y", 2005, "Cold Play");
     cd1->adicionaFaixa("Square One", 287); // 4:47
@@ -50,106 +50,104 @@ void realizaTestes() {
 
     // Criar uma classe cadastro e tenta buscar uma midia na lista vazia
 
-    cd1->imprimeFicha();
-    dvd2->imprimeFicha();
 
-    // catalogo = new Catalogo();
+    catalogo = new Catalogo();
 
     // adiciona 6 midias
 
-    // catalogo->adicionaMidia(*cd1);
-    // catalogo->adicionaMidia(*dvd1);
-    // catalogo->adicionaMidia(*jogo1);
-    // catalogo->adicionaMidia(*cd2);
-    // catalogo->adicionaMidia(*dvd2);
-    // catalogo->adicionaMidia(*jogo2);
+    catalogo->adicionaMidia(*cd1);
+    catalogo->adicionaMidia(*dvd1);
+    catalogo->adicionaMidia(*jogo1);
+    catalogo->adicionaMidia(*cd2);
+    catalogo->adicionaMidia(*dvd2);
+    catalogo->adicionaMidia(*jogo2);
 
-    // catalogo->imprimeColecao();
-    // cout << "-------------------------------------" << endl;
-    // catalogo->imprimeColecaoPorTipo(1);
-    // cout << "-------------------------------------" << endl;
-    // catalogo->imprimeColecaoPorTipo(2);
-    // cout << "-------------------------------------" << endl;
-    // catalogo->imprimeColecaoPorTipo(3);
-    // cout << "-------------------------------------" << endl;
+    catalogo->imprimeColecao();
+    cout << "-------------------------------------" << endl;
+    catalogo->imprimeColecaoPorTipo(1);
+    cout << "-------------------------------------" << endl;
+    catalogo->imprimeColecaoPorTipo(2);
+    cout << "-------------------------------------" << endl;
+    catalogo->imprimeColecaoPorTipo(3);
+    cout << "-------------------------------------" << endl;
 
-    // if (cd1 != catalogo->obtemMidia("X & Y")) {
-    //     throw 1;
-    // }
+    if (cd1 != catalogo->obtemMidia("X & Y")) {
+        throw 1;
+    }
 
-    // if (dvd1 != catalogo->obtemMidia("O Senhor dos Anéis - A Sociedade dos Anel")) {
-    //     throw 2;
-    // }
+    if (dvd1 != catalogo->obtemMidia("O Senhor dos Anéis - A Sociedade dos Anel")) {
+        throw 2;
+    }
 
-    // if (jogo1 != catalogo->obtemMidia("Need For Speed - Underground II")) {
-    //     throw 3;
-    // }
+    if (jogo1 != catalogo->obtemMidia("Need For Speed - Underground II")) {
+        throw 3;
+    }
 
-    // if (cd2 != catalogo->obtemMidia("Bachianas Brasileiras No.2")) {
-    //     throw 4;
-    // }
+    if (cd2 != catalogo->obtemMidia("Bachianas Brasileiras No.2")) {
+        throw 4;
+    }
 
-    // if (dvd2 != catalogo->obtemMidia("Matrix")) {
-    //     throw 5;
-    // }
+    if (dvd2 != catalogo->obtemMidia("Matrix")) {
+        throw 5;
+    }
     
-    // if (jogo2 != catalogo->obtemMidia("Fifa 2008")) {
-    //     throw 6;
-    // }    
+    if (jogo2 != catalogo->obtemMidia("Fifa 2008")) {
+        throw 6;
+    }    
 
-    // // Verificando lista (todos)
+    // Verificando lista (todos)
 
-    // if (catalogo->quantidadeDeMidias() != 6) {
-    //     throw 7;
-    // }
+    if (catalogo->quantidadeDeMidias() != 6) {
+        throw 7;
+    }
 
-    // // Verificando lista (seleciona pelo tipo - CD de música - implementada
-    // // pela classe CD)
+    // Verificando lista (seleciona pelo tipo - CD de música - implementada
+    // pela classe CD)
     
-    // if (catalogo->quantidadeDeCDs() != 2) {
-    //     throw 8;
-    // }
+    if (catalogo->quantidadeDeCDs() != 2) {
+        throw 8;
+    }
 
-    // // Verificando lista (seleciona pelo tipo - DVD de filme - implementada
-    // // pela classe DVD)
+    // Verificando lista (seleciona pelo tipo - DVD de filme - implementada
+    // pela classe DVD)
 
-    // if (catalogo->quantidadeDeDVDs() != 2) {
-    //     throw 9;
-    // }
+    if (catalogo->quantidadeDeDVDs() != 2) {
+        throw 9;
+    }
 
-    // // Verificando lista (seleciona pelo tipo - Jogo Eletrônico -
-    // // implementada pela classe Jogo)
+    // Verificando lista (seleciona pelo tipo - Jogo Eletrônico -
+    // implementada pela classe Jogo)
 
-    // if (catalogo->quantidadeDeJogos() != 2) {
-    //     throw 10;
-    // }
+    if (catalogo->quantidadeDeJogos() != 2) {
+        throw 10;
+    }
 
-    // catalogo->removeMidia(cd2->getTitulo());
+    catalogo->removeMidia(cd2->getTitulo());
 
-    // // Verificando lista (seleciona pelo tipo - CD de música - implementada
-    // // pela classe CD)
+    // Verificando lista (seleciona pelo tipo - CD de música - implementada
+    // pela classe CD)
     
-    // if (catalogo->quantidadeDeCDs() != 1) {
-    //     throw 11;
-    // }
+    if (catalogo->quantidadeDeCDs() != 1) {
+        throw 11;
+    }
 
-    // catalogo->removeMidia(dvd2->getTitulo());
+    catalogo->removeMidia(dvd2->getTitulo());
     
-    // // Verificando lista (seleciona pelo tipo - DVD de filme - implementada
-    // // pela classe DVD)
+    // Verificando lista (seleciona pelo tipo - DVD de filme - implementada
+    // pela classe DVD)
     
-    // if (catalogo->quantidadeDeDVDs() != 1) {
-    //     throw 12;
-    // }
+    if (catalogo->quantidadeDeDVDs() != 1) {
+        throw 12;
+    }
 
-    // catalogo->removeMidia(jogo2->getTitulo());
+    catalogo->removeMidia(jogo2->getTitulo());
     
-    // // Verificando lista (seleciona pelo tipo - Jogo Eletrônico -
-    // // implementada pela classe Jogo)
+    // Verificando lista (seleciona pelo tipo - Jogo Eletrônico -
+    // implementada pela classe Jogo)
     
-    // if (catalogo->quantidadeDeJogos() != 1) {
-    //     throw 13;
-    // }
+    if (catalogo->quantidadeDeJogos() != 1) {
+        throw 13;
+    }
     
     cout << "Testes executados com sucesso !!" << endl;
 

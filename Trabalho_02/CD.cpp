@@ -47,7 +47,7 @@ namespace catalogo{
                 << ", duração: " << min
                 <<":" << setfill('0') << setw(2) << seg <<endl;
         }    
-        cout << "--------\n";
+        
 
     }
 }

@@ -5,6 +5,9 @@
 #include <iostream>
 using std::cout, std::endl;
 
+#include <algorithm>
+using std::sort;
+
 #include <cstring>
 using std::memset;
 //Usr Libraries 
@@ -18,14 +21,15 @@ namespace catalogo{
 class Catalogo{
     private:
         Midia **midia;
-        int totalMidia;
+        vector<Midia*> vMidia;
+        
     public:
         Catalogo();
         ~Catalogo();
 
         bool adicionaMidia(Midia &); 
-        bool removeMidia(string);
-        Midia* obtemMidia(string); 
+        bool removeMidia(string c);
+        Midia* obtemMidia(string c); 
 
         int quantidadeDeMidias() const;
         int quantidadeDeCDs() const;
@@ -34,18 +38,10 @@ class Catalogo{
         void imprimeColecao() const;
         void imprimeColecaoPorTipo(int) const;
 
-
+        static bool CatalogoOrder(const Midia *M1, const Midia *M2);
     };
 
-        Catalogo::Catalogo(){
-            //Alocacao Dinamica de Memoria
-            midia = new Midia*[MAX_MIDIA];
-            //Preenche vetor com posicao nula
-            //PORQUE WARNING com NULL?
-            memset(midia, 0, MAX_MIDIA * sizeof(midia));
-        }
 
-        Catalogo::~Catalogo(){}
 
 
 } // namespace Catalogo
