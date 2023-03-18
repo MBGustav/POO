@@ -10,7 +10,7 @@ namespace catalogo{
     void Midia::imprimeFicha() const{
         cout << "Titulo:  " << getTitulo() << endl;
         cout << "Ano:  "    <<this->getanoCriacao() << endl;
-        // this->imprimeDados();
+        this->imprimeDados();
         cout << "--------\n";
     }
     int Midia::getanoCriacao() const{

@@ -22,7 +22,6 @@ using std::setfill, std::setw;
 
 namespace catalogo{
 
-
     typedef enum midia_type{
         vCD=1,
         vDVD, // DVD = 2 

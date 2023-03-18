@@ -1,9 +1,9 @@
 #include <cstdlib>
 
-#include "CD.h"
-#include "DVD.h"
-#include "Catalogo.h"
-#include "Jogo.h"
+#include "include/CD.h"
+#include "include/DVD.h"
+#include "include/Catalogo.h"
+#include "include/Jogo.h"
 
 using namespace std;
 using namespace catalogo;
