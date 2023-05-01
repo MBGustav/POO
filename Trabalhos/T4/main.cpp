@@ -16,19 +16,28 @@ void GeraCatalogo(Catalogo *G){
     DVD *dvd1, *dvd2;
     Jogo *jogo1, *jogo2;
     Catalogo *catalogo;
+    
     cd1 = new CD("X & Y", 2005, "Cold Play");
-
-    dvd1 = new DVD("O Senhor dos Anéis - A Sociedade dos Anel", 2001,
-            "Peter Jacson");
-
-    jogo1 = new Jogo("Need For Speed - Underground II", 2005, "Corrida");
-
-    cd2 = new CD("Bachianas Brasileiras No.2", 2004,
-            "Orquestra de Câmara da Universidade de São Paulo");
+    cd2 = new CD("Bachianas Brasileiras No.2", 2004,"Orquestra de Câmara da Universidade de São Paulo");
+    
+    dvd1 = new DVD("O Senhor dos Anéis - A Sociedade dos Anel", 2001,"Peter Jacson");
     dvd2 = new DVD("Matrix", 1999, "Andy & Larry Wachoski");
 
+    jogo1 = new Jogo("Need For Speed - Underground II", 2005, "Corrida");
     jogo2 = new Jogo("Fifa 2008", 2008, "Esporte");
+    
+    cd1->adicionaFaixa("Square One", 287); // 4:47
+    cd1->adicionaFaixa("What If", 297); // 4:57
+    cd1->adicionaFaixa("White Shadows", 328); // 5:28
+    cd1->adicionaFaixa("Fix You", 294); // 4:54
+    cd1->adicionaFaixa("Talk", 311); // 5:11
+    cd1->adicionaFaixa("X&Y", 274); // 4:34
 
+    cd2->adicionaFaixa("(Prelúdio) O Canto do Capadócio", 512); // 4:32
+    cd2->adicionaFaixa("(Ária) O Canto da Nossa Terra", 389); // 6:29
+    cd2->adicionaFaixa("(Dança) Lembranca do Sertão", 324); // 5:24
+    cd2->adicionaFaixa("(Tocata) O Trenzinho do Caipira", 284); // 4:44
+    
     // adiciona 6 midias
     G->adicionaMidia(*cd1);
     G->adicionaMidia(*dvd1);
@@ -70,24 +79,26 @@ int main() {
                 break;
             }
             case 'T': {
-                cin.ignore();
-                cout << "Titulo: ";
-                // cin.getline(Titulo, 50);
-                getline(cin, Titulo);
-
-                catalogo->imprimeColecao(Titulo);
+                cout << "Selecione o tipo:\n";
+                cout <<"\t[1]-CD\n";
+                cout <<"\t[2]-DVD\n";
+                cout <<"\t[3]-Jogo\n";
+                cout << "> ";
+                
+                cin >> opc_qtd;
+                catalogo->imprimeColecaoPorTipo(opc_qtd);
                 break;
             }
             case 'C': {
-                catalogo->adiciona(vCD);
+                catalogo->adicionaMidia(type_CD);
                 break;
             }
             case 'D': {
-                catalogo->adiciona(vDVD);
+                catalogo->adicionaMidia(type_DVD);
                 break;
             }
             case 'J': {
-                catalogo->adiciona(vJOGO);
+                catalogo->adicionaMidia(type_JOGO);
                 break;
             }
             case 'M': {
@@ -121,6 +132,7 @@ int main() {
                 cout <<"\t[1]-CD\n";
                 cout <<"\t[2]-DVD\n";
                 cout <<"\t[3]-Jogo\n";
+                cout << "> ";
                 
                 cin >> opc_qtd;
                 switch(opc_qtd){
@@ -132,6 +144,7 @@ int main() {
                 }
             }
         }
+        cin.ignore();
         cout << endl;
     } while (op != 'F');
 }

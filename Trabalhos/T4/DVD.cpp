@@ -6,7 +6,7 @@ namespace catalogo{
     DVD::DVD(std::string titulo, int ano,std::string diretor):
     Midia(titulo, ano), Diretor(diretor){
         // Artistas.clear();
-        // type = vDVD;
+        // type = type_DVD;
         // totalArtistas = 0;
     }
 
@@ -18,7 +18,7 @@ namespace catalogo{
 
 
     int DVD::getTipo() const{
-        return vDVD;
+        return type_DVD;
     }
     
     void DVD::imprimeDados() const{ 

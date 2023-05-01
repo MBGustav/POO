@@ -48,11 +48,16 @@ class Catalogo{
         Catalogo(string filename);
         ~Catalogo();
 
+        bool adicionaMidia(int tipo);
         bool adicionaMidia(Midia &); 
+        
         bool removeMidia(string c);
         Midia* obtemMidia(string c); 
 
         // int indice(string nome_midia) const;
+        static char opcao();
+        static bool continuar(int tipo);
+
         int quantidadeDeMidias() const;
         int quantidadeDeCDs() const;
         int quantidadeDeDVDs() const;
@@ -60,8 +65,7 @@ class Catalogo{
         void imprimeColecao(bool ord);
         void imprimeColecao(string Titulo);
         void imprimeColecaoPorTipo(int) const;
-        static char opcao();
-        bool adiciona(int tipo);
+
         bool ModificaAno(string Titulo, int Ano);
         void Clear_All();
     };

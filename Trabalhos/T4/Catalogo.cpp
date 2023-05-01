@@ -1,7 +1,7 @@
 #include "Catalogo.h"
 #include <algorithm> 
 #include <fstream> 
-using std::ifstream, std::ofstream;
+using std::ifstream, std::ofstream;//, std::ifstream::gcount;
 using std::ios;
 #include <string>
 using std::string;
@@ -72,7 +72,7 @@ namespace catalogo
     int Catalogo::quantidadeDeCDs() const{
         int total_CD = 0; 
         for(int i=0; i < quantidadeDeMidias(); i++){
-            if(vMidia[i]->getTipo() == vCD) total_CD++;
+            if(vMidia[i]->getTipo() == type_CD) total_CD++;
         }
         return total_CD;
     }
@@ -80,7 +80,7 @@ namespace catalogo
     int Catalogo::quantidadeDeDVDs() const{
         int total_DVD = 0; 
         for(int i=0; i < quantidadeDeMidias(); i++){
-            if(vMidia[i]->getTipo() == vDVD) total_DVD++;
+            if(vMidia[i]->getTipo() == type_DVD) total_DVD++;
         }
         return total_DVD;
     }
@@ -88,7 +88,7 @@ namespace catalogo
     int Catalogo::quantidadeDeJogos() const{
         int total_JOGO = 0; 
         for(int i=0; i < quantidadeDeMidias(); i++){
-            if(vMidia[i]->getTipo() == vJOGO) total_JOGO++;
+            if(vMidia[i]->getTipo() == type_JOGO) total_JOGO++;
         }
         return total_JOGO;
     }
@@ -121,7 +121,7 @@ namespace catalogo
     cout << "[B] Importa BD padrao" << endl;
     cout << "[I] Impressao Comum" << endl;
     cout << "[O] Imprime ordenado (Nome)" << endl;
-    cout << "[T] Imprime Midia (Por Titulo)" << endl;
+    cout << "[T] Imprime Midia (Por Tipo)" << endl;
     cout << "[C] Adiciona CD" << endl;
     cout << "[D] Adiciona DVD" << endl;
     cout << "[J] Adiciona JOGO" << endl;
@@ -134,6 +134,16 @@ namespace catalogo
     return (toupper(c));
     }
 
+    bool Catalogo::continuar(int tipo = 0){
+        char include_more;
+        switch(tipo){
+            case type_CD: cout << "Deseja Incluir Musicas?(Y/N): ";
+            case type_DVD: cout << "Deseja Incluir Artistas?(Y/N): ";
+            default:cout << "Deseja Continuar?(Y/N): ";
+        }
+        cin >> include_more;
+        return 'Y' ==  toupper(include_more);
+    }
 
     void Catalogo::grava()
     {
@@ -143,10 +153,15 @@ namespace catalogo
         int tipo;
         string Titulo; //midia
         string Genero, Diretor, Artista;  //CD,DVD,JOGO
+        
         CD* cd;
+        Faixa *F;
+        string NomeF;
+        int Duracao;
+        long int totalF;
+
         DVD* dvd; 
         Jogo* jogo; 
-
         //Gravamos os dados de Midia, inicialmente
         //1. Abrimos o arquivo -- escrita
         ofstream saida(filename, ios::binary);
@@ -167,19 +182,34 @@ namespace catalogo
 
             switch (tipo)
             {
-            case vCD:
+            case type_CD:
                 {
-                    //3. Escrita de CD
+                //3. Escrita de CD
                     cd = dynamic_cast<CD*>(vMidia[i]);
                     Artista = cd->getArtista();
                     tam = Artista.size();
 
                     saida.write(reinterpret_cast<char*>(&tam), sizeof(tam));
                     saida.write(reinterpret_cast<char*>(&Artista[0]), tam);
-                
+
+                    //Escrita das Faixas do CD:
+                    totalF = cd->getTotalFaixas();
+                    saida.write(reinterpret_cast<char*>(&totalF), sizeof(totalF));
+                    for(auto i = 0; i <cd->getTotalFaixas();i++){
+                        F = cd->GetFaixa(i);
+                        NomeF = F->getNome();
+                        tam = NomeF.size(); 
+
+                        //Escreve Nome                       
+                        saida.write(reinterpret_cast<char*>(&tam), sizeof(tam));
+                        saida.write(reinterpret_cast<char*>(&NomeF[0]), tam);
+                        //Escreve Duracao
+                        Duracao = F->getDuracao();
+                        saida.write(reinterpret_cast<char*>(&Duracao), sizeof(Duracao));
+                    }
                 break;
                 }
-            case vDVD:
+            case type_DVD:
                 {
                     //3. Escrita de DVD
                     dvd = dynamic_cast<DVD*>(vMidia[i]);
@@ -192,7 +222,7 @@ namespace catalogo
                 break;
                 }
 
-            case vJOGO:
+            case type_JOGO:
                 {
                     //3. Escrita de JOGO
                     jogo = dynamic_cast<Jogo*>(vMidia[i]);
@@ -219,11 +249,17 @@ namespace catalogo
         int tipo;
         string Titulo; //midia
         string Genero, Diretor, Artista;  //CD,DVD,JOGO
-        // CD* cd;
+        CD* cd;
+        // Faixa *F;
+        long int totalF;
+        string NomeF;
+        int DuracaoF;
         // DVD* dvd; 
         // Jogo* jogo; 
-
         //Gravamos os dados de Midia, inicialmente
+        int gcount_check;
+        bool end_of_file = false;
+
         //1. Abrimos o arquivo -- escrita
         ifstream entrada(filename, ios::binary);
         if(!entrada.is_open()){
@@ -233,32 +269,45 @@ namespace catalogo
         //limpa vetor  - caso haja dados anteriores
         vMidia.clear();
         
-        
-        while (entrada.good())
+        //2. Leitura dos dados de Midia
+        entrada.read(reinterpret_cast<char*>(&tipo), sizeof(tipo));
+        while (entrada.good() && !end_of_file)
         {
-            //2. Leitura dos dados de Midia
-            entrada.read(reinterpret_cast<char*>(&tipo), sizeof(tipo));
-
             entrada.read(reinterpret_cast<char*>(&tam), sizeof(tam));
             Titulo.resize(tam);
             entrada.read(reinterpret_cast<char*>(&Titulo[0]), tam);
 
             entrada.read(reinterpret_cast<char*>(&Ano),sizeof(Ano));
-
             switch (tipo)
             {
-            case vCD:{
+            case type_CD:{
                     //3. Escrita de CD
                     entrada.read(reinterpret_cast<char*>(&tam), sizeof(tam));
                     Artista.resize(tam);//necessario sempre realocar tamanho de str
                     entrada.read(reinterpret_cast<char*>(&Artista[0]), tam);
-
                     // Adicao do novo CD ao vector de Midia
-                    vMidia.push_back(new CD(Titulo, Ano, Artista));
+                    cd = new CD(Titulo, Ano, Artista);
+                    
+                    
+                    entrada.read(reinterpret_cast<char*>(&totalF), sizeof(totalF));
+
+                    for(int i = 0; i < totalF; i++){
+
+                        //Leitura nome faixa: tamanho + nome
+                        entrada.read(reinterpret_cast<char*>(&tam), sizeof(tam));
+                        NomeF.resize(tam);
+                        entrada.read(reinterpret_cast<char*>(&NomeF[0]), tam);
+                        //Leitura duracao
+                        entrada.read(reinterpret_cast<char*>(&DuracaoF), sizeof(DuracaoF));
+                            
+                        cd->adicionaFaixa(NomeF, DuracaoF);
+                    }
+
+                    vMidia.push_back(cd);
                 
                 break;
                 }
-            case vDVD:{
+            case type_DVD:{
                     //3. Escrita de DVD
                     entrada.read(reinterpret_cast<char*>(&tam), sizeof(tam));
                     Diretor.resize(tam);//necessario sempre realocar tamanho de str
@@ -269,11 +318,11 @@ namespace catalogo
                 
                 break;
                 }
-            case vJOGO:{
+            case type_JOGO:{
                     //3. Escrita de JOGO
                     entrada.read(reinterpret_cast<char*>(&tam), sizeof(tam));
                     Genero.resize(tam);//necessario sempre realocar tamanho de str
-                    entrada.read(reinterpret_cast<char*>(&Genero[0]), tam);
+                     entrada.read(reinterpret_cast<char*>(&Genero[0]), tam);
 
                     // Adicao do novo DVD ao vector de Midia
                     vMidia.push_back(new Jogo(Titulo, Ano, Genero));
@@ -281,13 +330,14 @@ namespace catalogo
                 break;
                 }
             }//end switch
-
-
+            
+            //Leitura ao final do while -- checagem de eof
+            entrada.read(reinterpret_cast<char*>(&tipo), sizeof(tipo));
         }//end while
         entrada.close();
     }
 
-    bool Catalogo::adiciona(int tipo){
+    bool Catalogo::adicionaMidia(int tipo){
 
         bool added = false;
 
@@ -303,7 +353,7 @@ namespace catalogo
         std::cin >> Ano;
 
         switch (tipo){
-        case vCD:{
+        case type_CD:{
                 cin.ignore();
                 string artista;
                 std::cout << "Artista: ";
@@ -311,22 +361,32 @@ namespace catalogo
 
                 //instancia objeto
                 ptr_M = new CD(Titulo, Ano, artista);
+
+                string nomeF;
+                int duracaoF;
+                CD *cd = dynamic_cast<CD*>(ptr_M);
+                while(continuar(tipo)){
+                    cout << "Nome da Faixa: "; 
+                    cin.ignore();getline(cin, nomeF);
+                    cout << "Duracao: ";
+                    cin >> duracaoF;
+                    cd->adicionaFaixa(nomeF, duracaoF);
+                }
                 added = true;
                 break;
             }
-        case vDVD:{
+        case type_DVD:{
                 string Diretor;
                 cin.ignore();
                 std::cout << "Diretor: ";
                 getline(cin, Diretor);
                 
-
                 //instancia objeto
                 ptr_M = new DVD(Titulo, Ano, Diretor);
                 added = true;
                 break;
             }
-        case vJOGO:{
+        case type_JOGO:{
                 cin.ignore();
                 string Genero;
                 std::cout << "Genero: ";
@@ -378,7 +438,4 @@ namespace catalogo
         }
         vMidia.clear();
     }
-
-        
-
 }

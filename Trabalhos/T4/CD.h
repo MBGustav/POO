@@ -19,10 +19,7 @@ namespace catalogo{
     {
     private:
         string Artista;
-        long unsigned int totalFaixas;
         vector<Faixa*> Faixas; 
-        // vector<pair<string,int>> Faixas;
-        // static 
     public:
         CD(const string titulo, int ano,string artista);
         string getArtista() const;
@@ -33,11 +30,8 @@ namespace catalogo{
         void adicionaFaixa(string nome, int duracao); 
         // void adicionaFaixa(Faixa &F);
         long int getTotalFaixas()const;
-        // Faixa &GetFaixa(int) const;
+        Faixa *GetFaixa(int) const;
     };
-
-    //Inicializa sempre em 0;
-    // long int CD::totalFaixas = 0;
 }
 
 #endif //__CD_H__

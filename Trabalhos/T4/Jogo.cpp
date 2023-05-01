@@ -4,7 +4,7 @@
 namespace catalogo{
     Jogo::Jogo(string titulo, int anoCriacao, string genero):
     Midia(titulo, anoCriacao), Genero(genero){
-        // type = vJOGO;
+        // type = type_JOGO;
     }
 
     Jogo::~Jogo(){
@@ -12,7 +12,7 @@ namespace catalogo{
 
     int Jogo::getTipo()const {
         // return static_cast<int>(type);
-        return vJOGO;
+        return type_JOGO;
     }
 
     void Jogo::imprimeDados() const{ 
